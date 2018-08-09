@@ -22,19 +22,20 @@ class Search extends Component {
   }
 
   render() {
-    const {myBooks, moveBook, removeBook} = this.props;
+    const {myBooks, moveBook, removeBook, shelves} = this.props;
     let {searchTerm, searchedBooks} = this.state;
 
     return (
       <div className="search-books">
         <SearchInput searchTerm={searchTerm} changeSearchTerm={this.changeSearchTerm}/>
-        <SearchResults myBooks={myBooks} searchedBooks={searchedBooks} moveBook={moveBook} removeBook={removeBook}/>
+        <SearchResults myBooks={myBooks} searchedBooks={searchedBooks} moveBook={moveBook} removeBook={removeBook} shelves={shelves}/>
       </div>
     )
   }
 }
 
 Search.propTypes = {
+  shelves: propTypes.array.isRequired,
   myBooks: propTypes.array.isRequired,
   moveBook: propTypes.func.isRequired,
   removeBook: propTypes.func.isRequired

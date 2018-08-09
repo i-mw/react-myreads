@@ -12,7 +12,8 @@ class Book extends Component {
   }
   
   render() {
-    const book = this.props.book;
+    const {book, shelves} = this.props;
+    
     return(
       <li>
         <div className="book">
@@ -21,9 +22,12 @@ class Book extends Component {
             <div className="book-shelf-changer">
               <select defaultValue={book.shelf? book.shelf: 'none'} onChange={this.handleSelection}>
                 <option value="move" disabled>Move to...</option>
-                <option value="currentlyReading">Currently Reading</option>
-                <option value="wantToRead">Want to Read</option>
-                <option value="read">Read</option>
+                {
+                  shelves.map(shelf => {
+                    const camelCasedShelf = (shelf.charAt(0).toLowerCase() + shelf.substr(1)).split(' ').join('');
+                    return <option value={camelCasedShelf} key={camelCasedShelf}>{shelf}</option>
+                  })
+                }
                 <option value="none">None</option>
               </select>
             </div>
@@ -39,7 +43,8 @@ class Book extends Component {
 Book.propTypes = {
     book: propTypes.object.isRequired,
     moveBook: propTypes.func.isRequired,
-    removeBook: propTypes.func.isRequired
+    removeBook: propTypes.func.isRequired,
+    shelves: propTypes.array.isRequired
 };
 
 export default Book
