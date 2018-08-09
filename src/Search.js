@@ -7,7 +7,8 @@ import * as BooksAPI from './BooksAPI'
 class Search extends Component {
   state = {
     searchTerm: '',
-    searchedBooks: []
+    searchedBooks: [],
+    status: ''
   }
 
   changeSearchTerm = event => {
@@ -17,12 +18,12 @@ class Search extends Component {
 
   searchBooks(query) {
     if (query === '') {
-      this.setState({searchedBooks: []})
+      this.setState({searchedBooks: [], status: ''});
     } else {
-        this.setState({searchedBooks: []});
+        this.setState({searchedBooks: [], status: 'loading'});
         BooksAPI.search(query).then(books => {
           (query === this.state.searchTerm) && (
-            this.setState({searchedBooks: books})
+            this.setState({searchedBooks: books, status: ''})
           )
         })
       }
@@ -30,12 +31,12 @@ class Search extends Component {
 
   render() {
     const {myBooks, moveBook, shelves} = this.props;
-    let {searchTerm, searchedBooks} = this.state;
+    let {searchTerm, searchedBooks, status} = this.state;
 
     return (
       <div className="search-books">
         <SearchInput searchTerm={searchTerm} changeSearchTerm={this.changeSearchTerm}/>
-        <SearchResults myBooks={myBooks} searchedBooks={searchedBooks} moveBook={moveBook} shelves={shelves}/>
+        <SearchResults myBooks={myBooks} searchedBooks={searchedBooks} moveBook={moveBook} shelves={shelves} status={status}/>
       </div>
     )
   }
