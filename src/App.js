@@ -12,15 +12,22 @@ class BooksApp extends Component {
   }
 
   componentDidMount() {
-    BooksAPI.mwgetAll().then(books => {
+    BooksAPI.getAll().then(books => {
       this.setState({myBooks: books});
     });
   }
 
-  moveBook(bookId, shelf) {
-  }
+  moveBook = (book, shelf) => {
+    let modifiedBook = JSON.parse(JSON.stringify(book));
+    modifiedBook.shelf = shelf;
+    let myNewBooks = this.state.myBooks.filter(aBook => aBook.id !== book.id);
+    myNewBooks.push(modifiedBook);
+    
+    this.setState({
+      myBooks: myNewBooks
+    });
 
-  removeBook(bookId) {
+    BooksAPI.update(book, shelf);
   }
 
   render() {
@@ -29,10 +36,10 @@ class BooksApp extends Component {
     return (
       <div className="app">
         <Route exact path="/" render={() => {
-          return <ListBooks shelves={shelves} myBooks={myBooks} moveBook={this.moveBook} removeBook={this.removeBook}/>
+          return <ListBooks shelves={shelves} myBooks={myBooks} moveBook={this.moveBook}/>
         }}/>
         <Route path="/search" render={() => {
-          return <Search shelves={shelves} myBooks={myBooks} moveBook={this.moveBook} removeBook={this.removeBook}/>
+          return <Search shelves={shelves} myBooks={myBooks} moveBook={this.moveBook}/>
         }}/>
       </div>
     )

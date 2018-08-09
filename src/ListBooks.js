@@ -5,7 +5,7 @@ import Shelf from './Shelf'
 
 class ListBooks extends Component {
   render() {
-    const {shelves, myBooks, moveBook, removeBook} = this.props;
+    const {shelves, myBooks, moveBook} = this.props;
 
     return (
       <div className="list-books">
@@ -17,7 +17,7 @@ class ListBooks extends Component {
           <div>{shelves.map(shelf => {
             const camelCasedShelf = (shelf.charAt(0).toLowerCase() + shelf.substr(1)).split(' ').join('');
             const shelfBooks = myBooks.filter(book => (book.shelf === camelCasedShelf));
-            return <Shelf key={camelCasedShelf} shelfName={shelf} shelfBooks={shelfBooks} moveBook={moveBook} removeBook={removeBook} shelves={shelves}/>
+            return <Shelf key={camelCasedShelf} shelfName={shelf} shelfBooks={shelfBooks} moveBook={moveBook} shelves={shelves}/>
           })}</div>
         </div>
 
@@ -32,8 +32,7 @@ class ListBooks extends Component {
 ListBooks.propTypes = {
   shelves: propTypes.array.isRequired,
   myBooks: propTypes.array.isRequired,
-  moveBook: propTypes.func.isRequired,
-  removeBook: propTypes.func.isRequired
+  moveBook: propTypes.func.isRequired
 }
 
 export default ListBooks

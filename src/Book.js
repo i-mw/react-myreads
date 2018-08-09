@@ -2,13 +2,10 @@ import React, {Component} from 'react'
 import propTypes from 'prop-types'
 
 class Book extends Component {
+  
   handleSelection = event => {
     const book = this.props.book;
-    if (event.target.value === 'none') {
-      this.props.removeBook(book.id);
-    } else {
-      this.props.moveBook(book.id, event.target.value)
-    }
+      this.props.moveBook(book, event.target.value)
   }
   
   render() {
@@ -43,7 +40,6 @@ class Book extends Component {
 Book.propTypes = {
     book: propTypes.object.isRequired,
     moveBook: propTypes.func.isRequired,
-    removeBook: propTypes.func.isRequired,
     shelves: propTypes.array.isRequired
 };
 
