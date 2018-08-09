@@ -7,7 +7,7 @@ import './App.css'
 
 class BooksApp extends Component {
   state = {
-    shelves: ['Currently Reading', 'Want To Read', 'Read', 'Favorite'],
+    shelves: ['Currently Reading', 'Want To Read', 'Read'],
     myBooks: [],
   }
 
