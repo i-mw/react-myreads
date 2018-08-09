@@ -5,8 +5,7 @@ import Shelf from './Shelf'
 
 class ListBooks extends Component {
   render() {
-    const {books, moveBook, removeBook}= this.props;
-    const shelves = ['Currently Reading', 'Want To Read', 'Read'];
+    const {shelves, books, moveBook, removeBook} = this.props;
 
     return (
       <div className="list-books">
@@ -31,6 +30,7 @@ class ListBooks extends Component {
 }
 
 ListBooks.propTypes = {
+  shelves: propTypes.array.isRequired,
   books: propTypes.array.isRequired,
   moveBook: propTypes.func.isRequired,
   removeBook: propTypes.func.isRequired
