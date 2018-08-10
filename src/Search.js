@@ -8,7 +8,11 @@ class Search extends Component {
   state = {
     searchTerm: '',
     searchedBooks: [],
-    status: ''
+    isLoading: false
+  }
+
+  setLoadingStatus = status => {
+    this.setState({isLoading: status});
   }
 
   changeSearchTerm = event => {
@@ -18,29 +22,36 @@ class Search extends Component {
 
   searchBooks(query) {
     if (query === '') {
-      this.setState({searchedBooks: [], status: ''});
+      this.setState({searchedBooks: []});
+      this.setLoadingStatus(false);
     } else {
-        this.setState({searchedBooks: [], status: 'loading'});
+        this.setState({searchedBooks: []});
+        this.setLoadingStatus(true);
         BooksAPI.search(query)
           .then(books => {
-            (query === this.state.searchTerm) && (
-              this.setState({searchedBooks: books, status: ''})
-            )
+            if (query === this.state.searchTerm) {
+              this.setState({searchedBooks: books});
+              this.props.setOnline(true);
+              this.setLoadingStatus(false);
+            }
           })
           .catch(_ => {
-            this.setState({searchedBooks: [], status: 'noNetwork'});
+            this.setState({searchedBooks: []});
+            this.props.setOnline(false);
+            this.setLoadingStatus(false);
           })
       }
   }
 
   render() {
-    const {myBooks, moveBook, shelves} = this.props;
-    let {searchTerm, searchedBooks, status} = this.state;
+    const {myBooks, moveBook, shelves, isOnline} = this.props;
+    let {searchTerm, searchedBooks, isLoading} = this.state;
 
     return (
       <div className="search-books">
         <SearchInput searchTerm={searchTerm} changeSearchTerm={this.changeSearchTerm}/>
-        <SearchResults myBooks={myBooks} searchedBooks={searchedBooks} moveBook={moveBook} shelves={shelves} status={status}/>
+        <SearchResults myBooks={myBooks} searchedBooks={searchedBooks}
+        moveBook={moveBook} shelves={shelves} isOnline={isOnline} isLoading={isLoading}/>
       </div>
     )
   }
@@ -49,7 +60,9 @@ class Search extends Component {
 Search.propTypes = {
   shelves: propTypes.array.isRequired,
   myBooks: propTypes.array.isRequired,
-  moveBook: propTypes.func.isRequired
+  moveBook: propTypes.func.isRequired,
+  isOnline: propTypes.bool.isRequired,
+  setOnline: propTypes.func.isRequired
 }
 
 export default Search

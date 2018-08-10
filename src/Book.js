@@ -17,7 +17,7 @@ class Book extends Component {
           <div className="book-top">
             <div className="book-cover" style={{ width: 128, height: 188, backgroundImage:`url("${(!book.imageLinks || !book.imageLinks.thumbnail) ? './placerholder.jpg': book.imageLinks.thumbnail}")` }}></div>
             <div className="book-shelf-changer">
-              <select defaultValue={book.shelf ? book.shelf: 'none'} onChange={this.handleSelection}>
+              <select value={book.shelf} onChange={this.handleSelection}>
                 <option value="move" disabled>Move to...</option>
                 {
                   shelves.map(shelf => {

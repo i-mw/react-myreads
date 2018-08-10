@@ -4,27 +4,27 @@ import Book from './Book'
 
 class SearchResults extends Component {
   render() {
-    const {myBooks, searchedBooks, moveBook, shelves, status} = this.props;
+    const {myBooks, searchedBooks, moveBook, shelves, isOnline, isLoading} = this.props;
 
     return(
       <div className="search-books-results">
-        { (status === 'loading') ?
-          <img src="./loading.gif" alt="loading" style={{display: 'block', marginRight: 'auto', marginLeft: 'auto'}}/> :
-          
-          (status === 'noNetwork') ? 
-            <p style={{textAlign: "center", color: "red"}}>Your Internet Is Down.. </p> :
-
-            searchedBooks.error === "empty query" ?
-              <p style={{textAlign: "center"}}>We didn't find any results.. try different search query.. &lt;3</p> :
-          
-              <ol className="books-grid">
-                {searchedBooks.map(searchedBook => {
-                  myBooks.forEach(myBook => searchedBook.id === myBook.id && (
-                    searchedBook.shelf = myBook.shelf
-                  ));
-                  return <Book key={searchedBook.id} book={searchedBook} moveBook={moveBook} shelves={shelves}/>
-                })}
-              </ol>  
+        {isLoading ? (
+          <img src="./loading.gif" alt="loading" style={{display: 'block', marginRight: 'auto', marginLeft: 'auto'}}/>
+        ) : (
+          !isOnline &&
+            (<p className="network-error">Network error! Check your connection.</p>)
+        )}{
+          (searchedBooks.error) === "empty query" ? (
+            <p style={{textAlign: "center"}}>We didn't find any results. Try different search query.</p> 
+          ) : (
+            <ol className="books-grid">
+              {searchedBooks.map(searchedBook => {
+                const sameBook = myBooks.find(myBook => searchedBook.id === myBook.id);
+                sameBook ? searchedBook.shelf = sameBook.shelf : searchedBook.shelf = 'none';
+                return <Book key={searchedBook.id} book={searchedBook} moveBook={moveBook} shelves={shelves}/>
+              })}
+            </ol>
+          )
         }
       </div>
     );
@@ -39,7 +39,8 @@ SearchResults.propTypes = {
   ]),
   moveBook: propTypes.func.isRequired,
   shelves: propTypes.array.isRequired,
-  status: propTypes.string.isRequired
+  isOnline: propTypes.bool.isRequired,
+  isLoading: propTypes.bool.isRequired
 }
 
 export default SearchResults

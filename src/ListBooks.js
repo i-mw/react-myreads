@@ -5,7 +5,7 @@ import Shelf from './Shelf'
 
 class ListBooks extends Component {
   render() {
-    const {shelves, myBooks, moveBook, status} = this.props;
+    const {shelves, myBooks, moveBook, isOnline} = this.props;
 
     return (
       <div className="list-books">
@@ -13,8 +13,8 @@ class ListBooks extends Component {
           <h1>MyReads</h1>
         </div>
 
-        {(status === 'noNetwork') && 
-          <p style={{textAlign: "center", color: "red"}}>Your Internet Is Down.. </p>
+        {(!isOnline) && 
+            (<p className="network-error">Network error! Check your connection.</p>)
         }
 
         <div className="list-books-content">
@@ -37,7 +37,7 @@ ListBooks.propTypes = {
   shelves: propTypes.array.isRequired,
   myBooks: propTypes.array.isRequired,
   moveBook: propTypes.func.isRequired,
-  status: propTypes.string.isRequired
+  isOnline: propTypes.bool.isRequired
 }
 
 export default ListBooks

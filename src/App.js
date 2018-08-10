@@ -9,15 +9,20 @@ class BooksApp extends Component {
   state = {
     shelves: ['Currently Reading', 'Want To Read', 'Read'],
     myBooks: [],
-    status: ''
+    isOnline: true
   }
 
   componentDidMount() {
     BooksAPI.getAll()
       .then(books => {
         this.setState({myBooks: books});
+        this.setOnline(true);
       })
-      .catch(_ => this.setState({status: 'noNetwork'}));
+      .catch(_ => this.setOnline(false));
+  }
+
+  setOnline = status => {
+    this.setState({isOnline: status});
   }
 
   moveBook = (book, shelf) => {
@@ -27,28 +32,30 @@ class BooksApp extends Component {
     myNewBooks.push(modifiedBook);
     let oldBooks = this.state.myBooks;
 
-    this.setState({
-      myBooks: myNewBooks
-    });
+    this.setState({myBooks: myNewBooks});
 
     BooksAPI.update(book, shelf)
+      .then(_ => {this.setOnline(true)})
       .catch(_ => {
         window.setTimeout(_ => {
-          this.setState({myBooks: oldBooks, status: 'noNetwork'});
+          this.setState({myBooks: oldBooks});
+          this.setOnline(false);
         },500)
       })
   }
 
   render() {
-    const {shelves, myBooks, status} = this.state;
+    const {shelves, myBooks, isOnline} = this.state;
 
     return (
       <div className="app">
         <Route exact path="/" render={() => {
-          return <ListBooks shelves={shelves} myBooks={myBooks} moveBook={this.moveBook} status={status}/>
+          return <ListBooks shelves={shelves} myBooks={myBooks} moveBook={this.moveBook}
+          isOnline={isOnline}/>
         }}/>
         <Route path="/search" render={() => {
-          return <Search shelves={shelves} myBooks={myBooks} moveBook={this.moveBook}/>
+          return <Search shelves={shelves} myBooks={myBooks} moveBook={this.moveBook}
+          isOnline={isOnline} setOnline={this.setOnline}/>
         }}/>
       </div>
     )
