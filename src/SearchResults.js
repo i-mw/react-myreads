@@ -8,14 +8,18 @@ class SearchResults extends Component {
 
     return(
       <div className="search-books-results">
-        <ol className="books-grid">
-          {searchedBooks.map(searchedBook => {
-            myBooks.forEach(myBook => searchedBook.id === myBook.id && (
-              searchedBook.shelf = myBook.shelf
-            ));
-            return <Book key={searchedBook.id} book={searchedBook} moveBook={moveBook} shelves={shelves}/>
-          })}
-        </ol>
+        {searchedBooks.error === "empty query" ? 
+          <p style={{textAlign: "center"}}>We didn't find any results.. try different search query.. &lt;3</p> :
+      
+          <ol className="books-grid">
+            {searchedBooks.map(searchedBook => {
+              myBooks.forEach(myBook => searchedBook.id === myBook.id && (
+                searchedBook.shelf = myBook.shelf
+              ));
+              return <Book key={searchedBook.id} book={searchedBook} moveBook={moveBook} shelves={shelves}/>
+            })}
+          </ol>
+        }
       </div>
     );
   }
@@ -23,7 +27,10 @@ class SearchResults extends Component {
 
 SearchResults.propTypes = {
   myBooks: propTypes.array.isRequired,
-  searchedBooks: propTypes.array.isRequired,
+  searchedBooks: propTypes.oneOfType([
+    propTypes.array.isRequired,
+    propTypes.object.isRequired
+  ]),
   moveBook: propTypes.func.isRequired,
   shelves: propTypes.array.isRequired
 }
