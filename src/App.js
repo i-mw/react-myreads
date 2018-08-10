@@ -33,7 +33,9 @@ class BooksApp extends Component {
 
     BooksAPI.update(book, shelf)
       .catch(_ => {
-        this.setState({myBooks: oldBooks, status: 'noNetwork'});
+        window.setTimeout(_ => {
+          this.setState({myBooks: oldBooks, status: 'noNetwork'});
+        },500)
       })
   }
 
