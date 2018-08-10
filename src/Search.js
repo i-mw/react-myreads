@@ -21,11 +21,15 @@ class Search extends Component {
       this.setState({searchedBooks: [], status: ''});
     } else {
         this.setState({searchedBooks: [], status: 'loading'});
-        BooksAPI.search(query).then(books => {
-          (query === this.state.searchTerm) && (
-            this.setState({searchedBooks: books, status: ''})
-          )
-        })
+        BooksAPI.search(query)
+          .then(books => {
+            (query === this.state.searchTerm) && (
+              this.setState({searchedBooks: books, status: ''})
+            )
+          })
+          .catch(_ => {
+            this.setState({searchedBooks: [], status: 'noNetwork'});
+          })
       }
   }
 

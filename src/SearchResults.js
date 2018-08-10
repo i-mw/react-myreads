@@ -9,20 +9,22 @@ class SearchResults extends Component {
     return(
       <div className="search-books-results">
         { (status === 'loading') ?
-
           <img src="./loading.gif" alt="loading" style={{display: 'block', marginRight: 'auto', marginLeft: 'auto'}}/> :
+          
+          (status === 'noNetwork') ? 
+            <p style={{textAlign: "center", color: "red"}}>Your Internet Is Down.. </p> :
 
-          searchedBooks.error === "empty query" ?
-            <p style={{textAlign: "center"}}>We didn't find any results.. try different search query.. &lt;3</p> :
-        
-            <ol className="books-grid">
-              {searchedBooks.map(searchedBook => {
-                myBooks.forEach(myBook => searchedBook.id === myBook.id && (
-                  searchedBook.shelf = myBook.shelf
-                ));
-                return <Book key={searchedBook.id} book={searchedBook} moveBook={moveBook} shelves={shelves}/>
-              })}
-            </ol>  
+            searchedBooks.error === "empty query" ?
+              <p style={{textAlign: "center"}}>We didn't find any results.. try different search query.. &lt;3</p> :
+          
+              <ol className="books-grid">
+                {searchedBooks.map(searchedBook => {
+                  myBooks.forEach(myBook => searchedBook.id === myBook.id && (
+                    searchedBook.shelf = myBook.shelf
+                  ));
+                  return <Book key={searchedBook.id} book={searchedBook} moveBook={moveBook} shelves={shelves}/>
+                })}
+              </ol>  
         }
       </div>
     );
