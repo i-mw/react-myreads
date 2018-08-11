@@ -47,6 +47,7 @@ body, .app {
   position: fixed;
   right: 25px;
   bottom: 25px;
+  z-index: 3;
 }
 .open-search a {
   display: block;
