@@ -28,7 +28,7 @@ class BooksApp extends Component {
   moveBook = (book, shelf) => {
     let modifiedBook = JSON.parse(JSON.stringify(book));
     modifiedBook.shelf = shelf;
-    let myNewBooks = this.state.myBooks.filter(aBook => aBook.id !== book.id);
+    let myNewBooks = this.state.myBooks.filter(myBook => myBook.id !== book.id);
     myNewBooks.push(modifiedBook);
     let oldBooks = this.state.myBooks;
 
