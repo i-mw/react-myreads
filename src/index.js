@@ -5,11 +5,24 @@ import App from './App'
 import './index.css'
 
 /**
- * Insert App into Actual DOM
- * wrapped by BrowserRouter
+ * For static version:
+ * Create custom basename for BrowserRouter.
+ * On local host, basename = '/'
+ * On Github pages (main app page) path is ,for example, "https://i-mw.github.io/react-myreads/",
+ *  basename = '/react-myreads'
+ * On Github pages (search page) path is ,for example, "https://i-mw.github.io/react-myreads/search",
+ *  stil basename = '/react-myreads'
+ */
+let basename = window.location.pathname.split('/');
+basename[basename.length - 1] === 'search' && (basename.pop());
+basename = basename.join('/');
+
+/**
+ * Insert App into Actual DOM wrapped by 
+ * BrowserRouter with custom basename
  * to control routering
  */
 ReactDOM.render(
-  <BrowserRouter><App /></BrowserRouter>,
+  <BrowserRouter basename={basename}><App /></BrowserRouter>,
   document.getElementById('root')
 )
