@@ -11,7 +11,10 @@ class SearchInput extends Component {
         <Link to="/" className="close-search">Close</Link>
         
         <div className="search-books-input-wrapper">
-          <input autoFocus="true" type="text" defaultValue={searchTerm} onChange={changeSearchTerm} placeholder="Search by title or author" />
+          <input autoFocus="true" type="text" defaultValue={searchTerm}
+          onChange={changeSearchTerm}
+          onKeyDown={event => event.keyCode === 13 && (changeSearchTerm(event))} 
+          placeholder="Search by title or author" />
         </div>
       </div>
     )
