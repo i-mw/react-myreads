@@ -1,13 +1,26 @@
 import React, {Component} from 'react'
 import propTypes from 'prop-types'
 
+/**
+ * @constructor
+ * @description Book component representing a book card in main or search pages
+ * @param {} - All parameters (props) are defined using propTypes
+ * at the bottom of the page
+ */
 class Book extends Component {
   
+  /**
+   * @description Event handler for the onChange event attached to dropdown menu
+   * @param {object} event - onChange event object
+   */
   handleSelection = event => {
     const book = this.props.book;
-      this.props.moveBook(book, event.target.value)
+    this.props.moveBook(book, event.target.value);
   }
   
+  /**
+   * @description Draws UI
+   */
   render() {
     const {book, shelves} = this.props;
     
@@ -19,7 +32,9 @@ class Book extends Component {
             <div className="book-shelf-changer">
               <select value={book.shelf} onChange={this.handleSelection}>
                 <option value="move" disabled>Move to...</option>
-                {
+                { 
+                  // Build the 3 middle options represent shelves names
+                  // Built using map to be extensible and scalable
                   shelves.map(shelf => {
                     const camelCasedShelf = (shelf.charAt(0).toLowerCase() + shelf.substr(1)).split(' ').join('');
                     return <option value={camelCasedShelf} key={camelCasedShelf}>{shelf}</option>
@@ -29,9 +44,10 @@ class Book extends Component {
               </select>
             </div>
           </div>
-          <div className="book-title">{book.title ? book.title: 'Unkown'}</div>
+          <div className="book-title">{/* handle invalid title */book.title ? book.title: 'Unkown'}</div>
           <div className="book-authors">
-            {(!book.authors || !book.authors[0]) ?
+            { //handle invalid authors data
+              (!book.authors || !book.authors[0]) ?
               "Unknown" : 
               book.authors.map((author, index) => {
                 return (<span key={index}>{author}<br/></span>)

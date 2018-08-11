@@ -3,7 +3,18 @@ import {Link} from 'react-router-dom'
 import propTypes from 'prop-types'
 import Shelf from './Shelf'
 
+/**
+ * @constructor
+ * @description ListBooks component representing the main page
+ * It wraps multiple Shelf components
+ * @param {} - All parameters (props) are defined using propTypes
+ * at the bottom of the page
+ */
 class ListBooks extends Component {
+
+  /**
+   * @description Draws UI
+   */
   render() {
     const {shelves, myBooks, moveBook, isOnline} = this.props;
 
@@ -13,12 +24,14 @@ class ListBooks extends Component {
           <h1>MyReads</h1>
         </div>
 
-        {(!isOnline) && 
+        { // User is offline
+          (!isOnline) && 
             (<p className="network-error">Network error! Check your connection.</p>)
         }
 
         <div className="list-books-content">
           <div>{shelves.map(shelf => {
+            //convert shlef name from shelves into camelCased -for referencing-
             const camelCasedShelf = (shelf.charAt(0).toLowerCase() + shelf.substr(1)).split(' ').join('');
             const shelfBooks = myBooks.filter(book => (book.shelf === camelCasedShelf));
             return <Shelf key={camelCasedShelf} shelfName={shelf} shelfBooks={shelfBooks} moveBook={moveBook} shelves={shelves}/>
