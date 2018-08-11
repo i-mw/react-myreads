@@ -7,15 +7,21 @@ import './index.css'
 /**
  * For static version:
  * Create custom basename for BrowserRouter.
- * On local host, basename = '/'
- * On Github pages (main app page) path is ,for example, "https://i-mw.github.io/react-myreads/",
+ * On Github pages ,for example, "https://i-mw.github.io/react-myreads/",
  *  basename = '/react-myreads'
- * On Github pages (search page) path is ,for example, "https://i-mw.github.io/react-myreads/search",
- *  stil basename = '/react-myreads'
+ * On any other website, local host or any development url, basename = '/'
  */
-let basename = window.location.pathname.split('/');
-basename[basename.length - 1] === 'search' && (basename.pop());
-basename = basename.join('/');
+let hostname = window.location.hostname,
+    basename;
+
+if (hostname.search('github.io') > -1) {
+  // The app is hosted on github pages -not root directory-
+  basename = '/react-myreads';
+} else {
+  // The app is hosted on root directory
+  basename = '/';
+}
+
 
 /**
  * Insert App into Actual DOM wrapped by 
