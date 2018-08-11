@@ -1,5 +1,5 @@
 {
-  "homepage": "./",
+  "homepage": "https://i-mw.github.io/react-myreads",
   "dependencies": {
     "prop-types": "^15.6.1",
     "react": "^16.3.2",
