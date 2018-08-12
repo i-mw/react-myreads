@@ -7,6 +7,11 @@ import * as BooksAPI from './BooksAPI'
 import './App.css'
 
 /**
+ * Important: check here: https://github.com/i-mw/react-myreads#components-architecture
+ * to get a grasp on components architecture
+ */
+
+/**
  * @constructor
  * @description App component representing the whole app
  * It wraps ListBooks and Search components
