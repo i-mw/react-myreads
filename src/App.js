@@ -22,7 +22,8 @@ class BooksApp extends Component {
    * its value is obtained to tag shelves on the main page and also
    * by the dropdown menu of books in both main and search pages
    * 
-   * isOnline: Any request sent out will modify it in 'then' or 'catch' 
+   * isOnline: Any request sent out will modify it in 'then' or 'catch'
+   * isLoading: Any request sent out will modify it in 'then' or 'catch'
    */
   state = {
     shelves: ['Currently Reading', 'Want To Read', 'Read'],
@@ -56,6 +57,10 @@ class BooksApp extends Component {
     this.setState({isOnline: status});
   }
 
+  /**
+   * @description Change request status (isLoading books)
+   * @param {boolean} status - Loading books or not
+   */
   setLoading = status => {
     this.setState({isLoading: status})
   }
