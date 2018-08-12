@@ -15,18 +15,22 @@ class Shelf extends Component {
    * @description Draws UI
    */
   render() {
-    const {shelfName, shelfBooks, moveBook, shelves}= this.props;
+    const {shelfName, shelfBooks, moveBook, shelves, isLoading}= this.props;
 
     return (
       <div className="bookshelf">
         <h2 className="bookshelf-title">{shelfName}</h2>
-        <div className="bookshelf-books">
-          <ol className="books-grid">
-            {shelfBooks.map((book) => (
-              <Book key={book.id} book={book} moveBook={moveBook} shelves={shelves}/>
-            ))}
-          </ol>
-        </div>
+        { isLoading ? 
+          <img src="./loading.gif" alt="loading" style={{display: 'block', marginRight: 'auto', marginLeft: 'auto'}}/>
+          :
+          <div className="bookshelf-books">
+            <ol className="books-grid">
+              {shelfBooks.map((book) => (
+                <Book key={book.id} book={book} moveBook={moveBook} shelves={shelves}/>
+              ))}
+            </ol>
+          </div>
+        }  
       </div>
     );
   }
@@ -36,7 +40,8 @@ Shelf.propTypes = {
   shelfName: propTypes.string.isRequired,
   shelfBooks: propTypes.array.isRequired,
   moveBook: propTypes.func.isRequired,
-  shelves: propTypes.array.isRequired
+  shelves: propTypes.array.isRequired,
+  isLoading: propTypes.bool.isRequired,
 };
 
 export default Shelf

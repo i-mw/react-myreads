@@ -16,7 +16,7 @@ class ListBooks extends Component {
    * @description Draws UI
    */
   render() {
-    const {shelves, myBooks, moveBook, isOnline} = this.props;
+    const {shelves, myBooks, moveBook, isOnline, isLoading} = this.props;
 
     return (
       <div className="list-books">
@@ -34,7 +34,8 @@ class ListBooks extends Component {
             //convert shelf name from shelves into camelCased -for referencing-
             const camelCasedShelf = (shelf.charAt(0).toLowerCase() + shelf.substr(1)).split(' ').join('');
             const shelfBooks = myBooks.filter(book => (book.shelf === camelCasedShelf));
-            return <Shelf key={camelCasedShelf} shelfName={shelf} shelfBooks={shelfBooks} moveBook={moveBook} shelves={shelves}/>
+            return <Shelf key={camelCasedShelf} shelfName={shelf} shelfBooks={shelfBooks}
+                    moveBook={moveBook} shelves={shelves} isLoading={isLoading}/>
           })}</div>
         </div>
 
@@ -50,7 +51,8 @@ ListBooks.propTypes = {
   shelves: propTypes.array.isRequired,
   myBooks: propTypes.array.isRequired,
   moveBook: propTypes.func.isRequired,
-  isOnline: propTypes.bool.isRequired
+  isOnline: propTypes.bool.isRequired,
+  isLoading: propTypes.bool.isRequired,
 }
 
 export default ListBooks

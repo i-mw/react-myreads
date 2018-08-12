@@ -27,7 +27,8 @@ class BooksApp extends Component {
   state = {
     shelves: ['Currently Reading', 'Want To Read', 'Read'],
     myBooks: [],
-    isOnline: true
+    isOnline: true,
+    isLoading: true
   }
 
   /** 
@@ -36,10 +37,15 @@ class BooksApp extends Component {
   componentDidMount() {
     BooksAPI.getAll()
       .then(books => {
+        this.setLoading(false);
         this.setState({myBooks: books});
         this.setOnline(true);
       })
-      .catch(_ => this.setOnline(false));
+      .catch(_ => {
+        this.setLoading(false);
+        this.setOnline(false);
+
+      });
   }
 
   /** 
@@ -48,6 +54,10 @@ class BooksApp extends Component {
    */
   setOnline = status => {
     this.setState({isOnline: status});
+  }
+
+  setLoading = status => {
+    this.setState({isLoading: status})
   }
 
   /** 
@@ -89,14 +99,14 @@ class BooksApp extends Component {
    * @description Draws UI
    */
   render() {
-    const {shelves, myBooks, isOnline} = this.state;
+    const {shelves, myBooks, isOnline, isLoading} = this.state;
 
     return (
       <div className="app">
         <Switch>
           <Route exact path="/" render={() => {
             return <ListBooks shelves={shelves} myBooks={myBooks} moveBook={this.moveBook}
-            isOnline={isOnline}/>
+            isOnline={isOnline} isLoading={isLoading}/>
           }}/>
           <Route exact path="/search" render={() => {
             return <Search shelves={shelves} myBooks={myBooks} moveBook={this.moveBook}
