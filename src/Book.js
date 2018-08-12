@@ -28,7 +28,7 @@ class Book extends Component {
       <li>
         <div className="book">
           <div className="book-top">
-            <div className="book-cover" style={{ width: 128, height: 188, backgroundImage:`url("${(!book.imageLinks || !book.imageLinks.thumbnail) ? './placerholder.jpg': book.imageLinks.thumbnail}")` }}></div>
+            <div className="book-cover" style={{ width: 128, height: 188, backgroundImage:`url("${(!book.imageLinks || !book.imageLinks.thumbnail) ? './placeholder.jpg': book.imageLinks.thumbnail}")` }}></div>
             <div className="book-shelf-changer">
               <select value={book.shelf} onChange={this.handleSelection}>
                 <option value="move" disabled>Move to...</option>
@@ -44,7 +44,7 @@ class Book extends Component {
               </select>
             </div>
           </div>
-          <div className="book-title">{/* handle invalid title */book.title ? book.title: 'Unkown'}</div>
+          <div className="book-title">{/* handle invalid title */book.title ? book.title: 'Unknown'}</div>
           <div className="book-authors">
             { //handle invalid authors data
               (!book.authors || !book.authors[0]) ?

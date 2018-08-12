@@ -17,7 +17,7 @@ class SearchInput extends Component {
     const {searchTerm, changeSearchTerm} = this.props;
 
     /**
-     * Input field listens to two events: onChage and onKeyDown
+     * Input field listens to two events: onChange and onKeyDown
      * onKeyDown becomes handy when the internet goes down and then up.
      * At this moment, the user can press 'Enter' to fire fetch request
      */

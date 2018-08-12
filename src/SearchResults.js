@@ -19,7 +19,7 @@ class SearchResults extends Component {
 
     return(
       <div className="search-books-results">
-        { // Requst is pending
+        { // Request is pending
           isLoading ? (
           <img src="./loading.gif" alt="loading" style={{display: 'block', marginRight: 'auto', marginLeft: 'auto'}}/>
         ) : (

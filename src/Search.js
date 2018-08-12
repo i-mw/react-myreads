@@ -13,7 +13,7 @@ import * as BooksAPI from './BooksAPI'
  */
 class Search extends Component {
   /**
-   * isLoading: refers to reqest status
+   * isLoading: refers to request status
    * if true, the search page will show loading icon
    */
   state = {
@@ -23,7 +23,7 @@ class Search extends Component {
   }
 
   /** 
-   * @description Change requst status (isLoading)
+   * @description Change request status (isLoading)
    * @param {boolean} status - Making a request or steady
    */
   setLoadingStatus = status => {

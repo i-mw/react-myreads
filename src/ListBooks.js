@@ -31,7 +31,7 @@ class ListBooks extends Component {
 
         <div className="list-books-content">
           <div>{shelves.map(shelf => {
-            //convert shlef name from shelves into camelCased -for referencing-
+            //convert shelf name from shelves into camelCased -for referencing-
             const camelCasedShelf = (shelf.charAt(0).toLowerCase() + shelf.substr(1)).split(' ').join('');
             const shelfBooks = myBooks.filter(book => (book.shelf === camelCasedShelf));
             return <Shelf key={camelCasedShelf} shelfName={shelf} shelfBooks={shelfBooks} moveBook={moveBook} shelves={shelves}/>

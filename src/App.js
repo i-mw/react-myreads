@@ -19,7 +19,7 @@ import './App.css'
 class BooksApp extends Component {
   /** 
    * shelves: are defined in top parent state to be extensible and scalable
-   * its value is obtained to tag sheleves on the main page and also
+   * its value is obtained to tag shelves on the main page and also
    * by the dropdown menu of books in both main and search pages
    * 
    * isOnline: Any request sent out will modify it in 'then' or 'catch' 
@@ -31,7 +31,7 @@ class BooksApp extends Component {
   }
 
   /** 
-   * @description Retrives myBooks after first insert to the DOM
+   * @description Retrieve myBooks after first insertion into the DOM
    */
   componentDidMount() {
     BooksAPI.getAll()

@@ -26,7 +26,7 @@ if (hostname.search('github.io') > -1) {
 /**
  * Insert App into Actual DOM wrapped by 
  * BrowserRouter with custom basename
- * to control routering
+ * to control routeing
  */
 ReactDOM.render(
   <BrowserRouter basename={basename}><App /></BrowserRouter>,
